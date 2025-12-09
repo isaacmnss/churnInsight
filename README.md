@@ -73,7 +73,7 @@ Exemplos:
 
 ---
 
-## 🌱 Como criar uma nova feature
+## 🌱 Como criar uma feature
 
 Sempre inicie sua feature a partir da branch **develop**:
 
