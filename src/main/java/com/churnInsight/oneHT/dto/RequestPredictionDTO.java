@@ -1,10 +1,10 @@
-package dto;
+package com.churnInsight.oneHT.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record RequestPrevisaoDTO(
+public record RequestPredictionDTO(
         @NotNull
         Integer creditScore,
 
@@ -30,6 +30,9 @@ public record RequestPrevisaoDTO(
 
         @NotNull
         Integer isActiveMember,
+
+        @NotNull
+        Double satisfactionScore,
 
         @NotNull
         Double estimatedSalary,
