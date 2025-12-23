@@ -15,7 +15,7 @@ public record RequestPredictionDTO(
         String genero,
 
         @NotNull
-        @Min(0)
+        @Min(18)
         Integer age,
 
         @NotNull
@@ -26,10 +26,9 @@ public record RequestPredictionDTO(
 
         @NotNull Integer numOfProducts,
 
-        @NotNull Integer hasCrCard,
+        @NotNull boolean hasCrCard,
 
-        @NotNull
-        Integer isActiveMember,
+        @NotNull boolean isActiveMember,
 
         @NotNull
         Double satisfactionScore,
