@@ -13,11 +13,11 @@ Quando o sistema estiver mais maduro, este arquivo será substituído pela docum
 src/
   main/
     java/
-      controllers/
-      services/
-      repositories/
-      dtos/
-      entities/
+      controller/
+      service/
+      repository/
+      dto/
+      entity/
     resources/
       db/migration/
       static/
