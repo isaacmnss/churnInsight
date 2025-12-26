@@ -23,4 +23,5 @@ public class ChurnPredictionController {
         return ResponseEntity.ok(service.predict(request));
     }
 
+
 }
