@@ -1,4 +1,4 @@
-package com.churnInsight.oneHT.exception;
+package com.churnInsight.oneHT.framework.exceptions;
 
 import java.time.LocalDateTime;
 import java.util.List;

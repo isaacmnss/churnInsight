@@ -13,15 +13,19 @@ Quando o sistema estiver mais maduro, este arquivo será substituído pela docum
 src/
   main/
     java/
-      controller/
-      service/
-      repository/
-      dto/
-      entity/
+      application/
+      domain/
+         dto/
+         entity/
+      framework/
+         adapters/
+            in/
+            out/
+         exceptions/
+         helper/
+            config/    
     resources/
       db/migration/
-      static/
-      templates/
       application.properties
   test/
 ```
@@ -39,7 +43,7 @@ DB_USER= usuario-banco
 DB_PASSWORD= senha-banco
 DB_HOST= host-banco
 DB_NAME= nome-banco
-API_KEY= chave-api 
+API_KEY= chave-api
 ```
 ---
 

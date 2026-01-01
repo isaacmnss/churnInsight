@@ -1,4 +1,4 @@
-package com.churnInsight.oneHT.exception;
+package com.churnInsight.oneHT.framework.exceptions;
 
 public class ExceptionNegocio extends RuntimeException{
 

@@ -1,4 +1,4 @@
-package com.churnInsight.oneHT.dto;
+package com.churnInsight.oneHT.domain.dto;
 
 import java.time.LocalDateTime;
 

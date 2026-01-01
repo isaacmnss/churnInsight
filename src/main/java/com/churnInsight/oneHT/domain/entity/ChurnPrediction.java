@@ -1,4 +1,4 @@
-package com.churnInsight.oneHT.entity;
+package com.churnInsight.oneHT.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
