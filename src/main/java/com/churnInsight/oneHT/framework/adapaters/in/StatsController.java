@@ -1,7 +1,7 @@
-package com.churnInsight.oneHT.controller;
+package com.churnInsight.oneHT.framework.adapaters.in;
 
-import com.churnInsight.oneHT.dto.StatsResponseDTO;
-import com.churnInsight.oneHT.service.StatsService;
+import com.churnInsight.oneHT.domain.dto.StatsResponseDTO;
+import com.churnInsight.oneHT.application.service.StatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

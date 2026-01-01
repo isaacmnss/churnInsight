@@ -1,7 +1,7 @@
-package com.churnInsight.oneHT.service;
+package com.churnInsight.oneHT.application.service;
 
-import com.churnInsight.oneHT.dto.StatsResponseDTO;
-import com.churnInsight.oneHT.repository.ChurnPredictionRepository;
+import com.churnInsight.oneHT.domain.dto.StatsResponseDTO;
+import com.churnInsight.oneHT.framework.adapaters.out.ChurnPredictionRepository;
 import org.springframework.stereotype.Service;
 
 @Service

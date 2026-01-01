@@ -1,9 +1,9 @@
-package com.churnInsight.oneHT.service;
+package com.churnInsight.oneHT.application.service;
 
-import com.churnInsight.oneHT.dto.PredictionResponseDTO;
-import com.churnInsight.oneHT.dto.RequestPredictionDTO;
-import com.churnInsight.oneHT.entity.ChurnPrediction;
-import com.churnInsight.oneHT.repository.ChurnPredictionRepository;
+import com.churnInsight.oneHT.domain.dto.PredictionResponseDTO;
+import com.churnInsight.oneHT.domain.dto.RequestPredictionDTO;
+import com.churnInsight.oneHT.domain.entity.ChurnPrediction;
+import com.churnInsight.oneHT.framework.adapaters.out.ChurnPredictionRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
