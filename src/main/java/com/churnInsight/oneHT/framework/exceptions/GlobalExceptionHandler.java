@@ -48,14 +48,14 @@ public class GlobalExceptionHandler {
 
         APIErrorResponse response = new APIErrorResponse(
                 LocalDateTime.now(),
-                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                HttpStatus.UNPROCESSABLE_CONTENT.value(),
                 "Business Error",
                 ex.getMessage(),
                 request.getRequestURI(),
                 null
         );
 
-        return ResponseEntity.unprocessableEntity().body(response);
+        return ResponseEntity.unprocessableContent().body(response);
     }
 
     public ResponseEntity<APIErrorResponse> handleGenericException(
