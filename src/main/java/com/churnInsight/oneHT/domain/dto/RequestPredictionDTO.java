@@ -1,45 +1,52 @@
 package com.churnInsight.oneHT.domain.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import com.churnInsight.oneHT.domain.Enum.CardType;
+import com.churnInsight.oneHT.domain.Enum.Gender;
+import com.churnInsight.oneHT.domain.Enum.Geography;
+import jakarta.validation.constraints.*;
 
 public record RequestPredictionDTO(
         @NotNull
+        @Positive
         Integer creditScore,
 
-        @NotBlank
-        String geography,
+        @NotNull
+        Geography geography,
 
-        @NotBlank
-        String genero,
+        @NotNull
+        Gender gender,
 
         @NotNull
         @Min(18)
         Integer age,
 
         @NotNull
+        @PositiveOrZero
         Integer tenure,
 
         @NotNull
+        @PositiveOrZero
         Double balance,
 
         @NotNull Integer numOfProducts,
 
-        @NotNull boolean hasCrCard,
+        boolean hasCrCard,
 
-        @NotNull boolean isActiveMember,
+        boolean isActiveMember,
 
         @NotNull
+        @Min(1) @Max(5)
         Double satisfactionScore,
 
         @NotNull
+        @PositiveOrZero
         Double estimatedSalary,
 
         @NotNull
+        @PositiveOrZero
         Integer pointEarned,
 
-        @NotBlank
-        String cardType
+        @NotNull
+        CardType cardType
 ) {
 }

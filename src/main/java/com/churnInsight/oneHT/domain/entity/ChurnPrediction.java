@@ -1,5 +1,8 @@
 package com.churnInsight.oneHT.domain.entity;
 
+import com.churnInsight.oneHT.domain.Enum.CardType;
+import com.churnInsight.oneHT.domain.Enum.Gender;
+import com.churnInsight.oneHT.domain.Enum.Geography;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.Builder;
@@ -23,10 +26,12 @@ public class ChurnPrediction {
     private Integer creditScore;
 
     @Column(nullable = false)
-    private String geography;
+    @Enumerated(EnumType.STRING)
+    private Geography geography;
 
     @Column(nullable = false)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Column(nullable = false)
     private Integer age;
@@ -53,7 +58,8 @@ public class ChurnPrediction {
     private Integer pointEarned;
 
     @Column(nullable = false)
-    private String cardType;
+    @Enumerated(EnumType.STRING)
+    private CardType cardType;
 
     @Column(nullable = false)
     private Double churnProbability;
