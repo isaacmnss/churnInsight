@@ -1,4 +1,4 @@
-package com.churnInsight.oneHT.framework.adapaters.out;
+package com.churnInsight.oneHT.framework.adapters.out;
 
 import com.churnInsight.oneHT.domain.entity.ChurnPrediction;
 import org.springframework.data.jpa.repository.JpaRepository;

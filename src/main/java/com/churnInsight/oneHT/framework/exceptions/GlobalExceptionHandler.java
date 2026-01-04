@@ -3,16 +3,52 @@ package com.churnInsight.oneHT.framework.exceptions;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import tools.jackson.databind.exc.InvalidFormatException;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<APIErrorResponse> handleInvalidEnum(
+            HttpMessageNotReadableException ex,
+            HttpServletRequest request
+    ) {
+
+        String message = "Valor inválido para um dos campos";
+
+        if (ex.getCause() instanceof InvalidFormatException e
+                && e.getTargetType().isEnum()) {
+
+            String fieldName = e.getPath().getFirst().getPropertyName();
+
+            message = String.format(
+                    "Valor inválido para o campo '%s'. Valores aceitos: %s",
+                    fieldName,
+                    Arrays.toString(e.getTargetType().getEnumConstants())
+            );
+        }
+
+        APIErrorResponse response = new APIErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.UNPROCESSABLE_CONTENT.value(),
+                "Erro de validação",
+                message,
+                request.getRequestURI(),
+                null
+        );
+
+        return ResponseEntity
+                .unprocessableContent()
+                .body(response);
+    }
 
     @ExceptionHandler (MethodArgumentNotValidException.class)
     public ResponseEntity<APIErrorResponse> handleValidationError(
@@ -31,7 +67,7 @@ public class GlobalExceptionHandler {
         APIErrorResponse response = new APIErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
-                "Validation Error",
+                "Erro de validação",
                 "Dados inválidos",
                 request.getRequestURI(),
                 fieldErrors
@@ -48,14 +84,14 @@ public class GlobalExceptionHandler {
 
         APIErrorResponse response = new APIErrorResponse(
                 LocalDateTime.now(),
-                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                HttpStatus.UNPROCESSABLE_CONTENT.value(),
                 "Business Error",
                 ex.getMessage(),
                 request.getRequestURI(),
                 null
         );
 
-        return ResponseEntity.unprocessableEntity().body(response);
+        return ResponseEntity.unprocessableContent().body(response);
     }
 
     public ResponseEntity<APIErrorResponse> handleGenericException(

@@ -1,4 +1,4 @@
-package com.churnInsight.oneHT.framework.adapaters.in;
+package com.churnInsight.oneHT.framework.adapters.in;
 
 import com.churnInsight.oneHT.domain.dto.StatsResponseDTO;
 import com.churnInsight.oneHT.application.service.StatsService;

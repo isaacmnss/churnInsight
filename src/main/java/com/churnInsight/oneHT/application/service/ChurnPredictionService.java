@@ -3,7 +3,8 @@ package com.churnInsight.oneHT.application.service;
 import com.churnInsight.oneHT.domain.dto.PredictionResponseDTO;
 import com.churnInsight.oneHT.domain.dto.RequestPredictionDTO;
 import com.churnInsight.oneHT.domain.entity.ChurnPrediction;
-import com.churnInsight.oneHT.framework.adapaters.out.ChurnPredictionRepository;
+import com.churnInsight.oneHT.framework.adapters.out.ChurnPredictionRepository;
+import com.churnInsight.oneHT.framework.exceptions.ExceptionNegocio;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,13 @@ public class ChurnPredictionService {
     }
 
     public PredictionResponseDTO predict(RequestPredictionDTO request){
+
+        if(request.age()< 18){
+            throw new ExceptionNegocio("Cliente deve ser maior de idade");
+        }
+
+
+
         double probabilidade = Math.random();
 
         boolean vaiCancelar = probabilidade > 0.5;
@@ -27,7 +35,7 @@ public class ChurnPredictionService {
         ChurnPrediction prediction = ChurnPrediction.builder()
                 .creditScore(request.creditScore())
                 .geography(request.geography())
-                .gender(request.genero())
+                .gender(request.gender())
                 .age(request.age())
                 .tenure(request.tenure())
                 .balance(request.balance())
