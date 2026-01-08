@@ -1,4 +1,10 @@
 package com.churnInsight.oneHT.application.ports.in;
 
-public class ChurnPredictionService {
+import com.churnInsight.oneHT.domain.dto.PredictionResponseDTO;
+import com.churnInsight.oneHT.domain.dto.RequestPredictionDTO;
+
+public interface ChurnPredictionService {
+
+    PredictionResponseDTO predict(RequestPredictionDTO request);
+
 }
