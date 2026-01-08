@@ -1,4 +1,4 @@
-package com.churnInsight.oneHT.exception;
+package com.churnInsight.oneHT.framework.exceptions;
 
 public record FieldErrorResponse(
         String campo,

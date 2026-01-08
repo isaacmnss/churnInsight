@@ -1,4 +1,4 @@
-package com.churnInsight.oneHT.config;
+package com.churnInsight.oneHT.framework.helper.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
