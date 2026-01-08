@@ -1,4 +1,4 @@
-package com.churnInsight.oneHT.entity;
+package com.churnInsight.oneHT.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,13 +41,16 @@ public class ChurnPrediction {
     private Integer numOfProducts;
 
     @Column(nullable = false)
-    private boolean hasCrCard;
+    private Boolean hasCrCard;
 
     @Column(nullable = false)
-    private boolean isActiveMember;
+    private Boolean isActiveMember;
 
     @Column(nullable = false)
     private Double estimatedSalary;
+
+    @Column(nullable = false)
+    private Integer satisfactionScore;
 
     @Column(nullable = false)
     private Integer pointEarned;
@@ -59,10 +62,12 @@ public class ChurnPrediction {
     private Double churnProbability;
 
     @Column(nullable = false)
-    private Boolean churn;
+    private String riskMessage;
+
+    @Column(nullable = false)
+    private Boolean prediction;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
-
 
 }
