@@ -13,6 +13,7 @@ public record PredictionResponseDTO(
 
         @JsonProperty("risk_message")
         String riskMessage,
+        @JsonProperty("timeStamp")
         LocalDateTime timeStamp
 ) {
 

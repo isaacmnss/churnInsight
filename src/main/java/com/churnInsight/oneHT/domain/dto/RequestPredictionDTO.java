@@ -1,14 +1,13 @@
 package com.churnInsight.oneHT.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 public record RequestPredictionDTO(
 
         @JsonProperty("CreditScore")
         @NotNull
+        @Positive
         Integer creditScore,
 
         @JsonProperty("Geography")
