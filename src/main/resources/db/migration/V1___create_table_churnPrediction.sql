@@ -12,12 +12,13 @@ CREATE TABLE previsao_churn (
     has_cr_card BOOLEAN NOT NULL,
     is_active_member BOOLEAN NOT NULL,
     estimated_salary DOUBLE PRECISION NOT NULL,
-
+    satisfaction_score INTEGER NOT NULL,
+    risk_message VARCHAR(100) NOT NULL,
     point_earned INTEGER NOT NULL,
     card_type VARCHAR(50) NOT NULL,
 
     churn_probability DOUBLE PRECISION NOT NULL,
-    churn BOOLEAN NOT NULL,
+    prediction BOOLEAN NOT NULL,
 
     created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
 );

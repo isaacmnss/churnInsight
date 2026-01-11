@@ -1,10 +1,18 @@
 package com.churnInsight.oneHT.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 
 public record PredictionResponseDTO(
-        Double ProbabilidadeChurn,
-        boolean vaiCancelar,
+        @JsonProperty("prediction")
+        Integer prediction,
+
+        @JsonProperty("churn_probability")
+        Double churnProbability,
+
+        @JsonProperty("risk_message")
+        String riskMessage,
         LocalDateTime timeStamp
 ) {
 
