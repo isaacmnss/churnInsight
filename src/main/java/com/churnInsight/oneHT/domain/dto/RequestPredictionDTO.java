@@ -1,52 +1,62 @@
 package com.churnInsight.oneHT.domain.dto;
 
-import com.churnInsight.oneHT.domain.Enum.CardType;
-import com.churnInsight.oneHT.domain.Enum.Gender;
-import com.churnInsight.oneHT.domain.Enum.Geography;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 
 public record RequestPredictionDTO(
+
+        @JsonProperty("CreditScore")
         @NotNull
         @Positive
         Integer creditScore,
 
-        @NotNull
-        Geography geography,
+        @JsonProperty("Geography")
+        @NotBlank
+        String geography,
 
-        @NotNull
-        Gender gender,
+        @JsonProperty("Gender")
+        @NotBlank
+        String gender,
 
+        @JsonProperty("Age")
         @NotNull
         @Min(18)
         Integer age,
 
+        @JsonProperty("Tenure")
         @NotNull
-        @PositiveOrZero
         Integer tenure,
 
+        @JsonProperty("Balance")
         @NotNull
-        @PositiveOrZero
         Double balance,
 
-        @NotNull Integer numOfProducts,
-
-        boolean hasCrCard,
-
-        boolean isActiveMember,
-
+        @JsonProperty("NumOfProducts")
         @NotNull
-        @Min(1) @Max(5)
-        Double satisfactionScore,
+        Integer numOfProducts,
 
+        @JsonProperty("HasCrCard")
         @NotNull
-        @PositiveOrZero
+        Boolean hasCrCard,
+
+        @JsonProperty("IsActiveMember")
+        @NotNull
+        Boolean isActiveMember,
+
+        @JsonProperty("EstimatedSalary")
+        @NotNull
         Double estimatedSalary,
 
+        @JsonProperty("Satisfaction_Score")
         @NotNull
-        @PositiveOrZero
+        Integer satisfactionScore,
+
+        @JsonProperty("Point_Earned")
+        @NotNull
         Integer pointEarned,
 
-        @NotNull
-        CardType cardType
+        @JsonProperty("CardType")
+        @NotBlank
+        String cardType
 ) {
 }
