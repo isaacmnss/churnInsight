@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 
 public record PredictionResponseDTO(
+
         @JsonProperty("prediction")
         Integer prediction,
 
@@ -13,6 +14,7 @@ public record PredictionResponseDTO(
 
         @JsonProperty("risk_message")
         String riskMessage,
+
         @JsonProperty("timeStamp")
         LocalDateTime timeStamp
 ) {
