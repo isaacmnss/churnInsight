@@ -107,9 +107,10 @@ Exemplo de response:
 
 ```json
 {
-  "churn": true,
-  "probability": 0.78,
-  "risk_message": "alto"
+  "prediction": 0,
+  "churn_probability": 0.1,
+  "risk_message": "string",
+  "timeStamp": "2026-01-15T01:01:34.410Z"
 }
 ```
 
@@ -141,6 +142,7 @@ O modelo de ML consumido pela API foi treinado utilizando o dataset público:
 > ⚠️ Dataset utilizado exclusivamente para fins educacionais e de demonstração.
 
 ---
+
 
 ## 🚀 Como Executar Localmente
 
@@ -197,6 +199,18 @@ POST /v1/prediction
 GET  /v1/stats
 GET  /actuator/health
 ```
+
+---
+
+## 📄 Documentação da API
+
+A API disponibiliza documentação interativa via **Swagger/OpenAPI**:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+---
 
 ## ❤️ Agradecimentos
 
