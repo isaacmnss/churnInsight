@@ -1,13 +1,54 @@
-# 🧩 Guia de Desenvolvimento — Projeto
+# ⚙️ ChurnInsight — API Backend
 
-Este README é temporário e dedicado exclusivamente aos **desenvolvedores do projeto**.  
-Ele descreve como devemos trabalhar com **branches**, **commits** e **Pull Requests** durante o desenvolvimento.
+> API responsável por orquestrar o **modelo de Machine Learning de churn**, fornecer endpoints REST e servir dados para o frontend do **ChurnInsight**.
 
-Quando o sistema estiver mais maduro, este arquivo será substituído pela documentação oficial do projeto.
+Este repositório representa o **núcleo da aplicação**, conectando o modelo de ML aos consumidores externos (frontend, testes e integrações), garantindo padronização, validação e escalabilidade.
 
 ---
 
-## 🗂️ Estrutura de Pastas
+## 🧩 Visão Geral da Arquitetura
+
+O **ChurnInsight** é composto por três camadas principais:
+
+| Camada          | Repositório                                                                                              | Responsabilidade                 |
+|-----------------|----------------------------------------------------------------------------------------------------------|----------------------------------|
+| 🖥️ Frontend    | [https://github.com/isaacmnss/churnInsight-frontend](https://github.com/isaacmnss/churnInsight-frontend) | Interface com o usuário          |
+| ⚙️ API Backend  | [https://github.com/isaacmnss/churnInsight](https://github.com/isaacmnss/churnInsight)                   | Orquestração, regras e endpoints |
+| 🧠 Modelo de ML | [https://github.com/isaacmnss/churnInsight-model](https://github.com/isaacmnss/churnInsight-model)       | Previsão de churn                |
+
+A API atua como **ponte entre o frontend e o modelo de ML**, garantindo desacoplamento e organização.
+
+---
+
+## 🎯 Responsabilidades da API
+
+A API é responsável por:
+
+* 📥 Receber dados de clientes
+* 🧪 Validar e normalizar entradas
+* 🧠 Executar previsões de churn via modelo de ML
+* 📊 Retornar probabilidades e classificações
+* 📁 Persistir dados (quando aplicável)
+* 📄 Expor documentação dos endpoints
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* **Java 21**
+* **Spring Boot**
+* **Spring Web (REST)**
+* **Spring Validation**
+* **Spring Data JPA**
+* **H2 / PostgreSQL** (configurável)
+* **Lombok**
+* **MapStruct**
+* **Swagger / OpenAPI**
+* **JUnit / Mockito** (testes)
+
+---
+
+## 📁 Estrutura do Projeto
 
 ```
 src/
@@ -30,110 +71,164 @@ src/
   test/
 ```
 
-## ⚙️ Variáveis de ambiente
+---
 
-As variáveis de credenciais (chave de API, senha e usuário de banco dados) devem ficar .env
+## 🔌 Endpoints Principais
 
-O .env deve ser criado localmente e **JAMAIS** deve ser adicionado ao git (sempre .gitignore)
+Exemplos de endpoints expostos pela API:
 
-### Exemplo: 
-
-```properties
-DB_USER= usuario-banco
-DB_PASSWORD= senha-banco
-DB_HOST= host-banco
-DB_NAME= nome-banco
-API_KEY= chave-api
+```http
+POST /v1/prediction
+GET  /v1/stats
+GET  /actuator/health
 ```
+
+Exemplo de request para previsão:
+
+```json
+{
+  "CreditScore": 650,
+  "Geography": "FRANCE",
+  "Gender": "MALE",
+  "Age": 35,
+  "Tenure": 5,
+  "Balance": 50000,
+  "NumOfProducts": 1,
+  "HasCrCard": 1,
+  "IsActiveMember": 1,
+  "EstimatedSalary": 50000,
+  "Satisfaction_Score": 5,
+  "Point_Earned": 500,
+  "CardType": "SILVER"
+}
+```
+
+Exemplo de response:
+
+```json
+{
+  "churn": true,
+  "probability": 0.78,
+  "risk_message": "alto"
+}
+```
+
 ---
 
-## 🚧 Estrutura de Branches
+## 🧠 Integração com o Modelo de ML
 
-O projeto seguirá a seguinte organização:
+A API carrega o modelo treinado do repositório:
 
-    main
-    ↓
-    develop
-    ↓
-    feature/<nome-da-feature>
+```
+https://github.com/isaacmnss/churnInsight-model
+```
 
-### 🔹 main
-- Contém a **versão estável** do projeto.
-- **É terminantemente proibido fazer push direto para `main`.**
-- Somente recebe código via Pull Request aprovado e revisado.
+Fluxo de integração:
 
-### 🔹 develop
-- Branch onde todo o desenvolvimento se integra.
-- Recebe PRs de `feature/*`.
-- Apenas após validação é feito o merge para `main`.
-
-### 🔹 feature/*
-- Branches criadas para desenvolvimento de funcionalidades, correções ou melhorias.
-- Formato recomendado: `feature/nome-descritivo`.
-
-Exemplos:
-- `feature/cadastro-de-medico`
-- `feature/ajuste-endpoint-agendamentos`
+1. API recebe dados via HTTP
+2. Realiza validação e transformação
+3. Executa o modelo de ML
+4. Retorna a previsão ao consumidor
 
 ---
 
-## 🌱 Como criar uma feature
+## 🧪 Dataset Utilizado
 
-Sempre inicie sua feature a partir da branch **develop**:
+O modelo de ML consumido pela API foi treinado utilizando o dataset público:
+
+🔗 [https://www.kaggle.com/datasets/radheshyamkollipara/bank-customer-churn](https://www.kaggle.com/datasets/radheshyamkollipara/bank-customer-churn)
+
+> ⚠️ Dataset utilizado exclusivamente para fins educacionais e de demonstração.
+
+---
+
+## 🚀 Como Executar Localmente
+
+### 1️⃣ Clonar o repositório
 
 ```bash
-git checkout develop
-git pull
-git checkout -b feature/nome-da-feature
+git clone https://github.com/isaacmnss/churnInsight.git
+cd churnInsight
 ```
----
-## ✍️ Padrão de Commits
 
-- Os commits devem ser claros, explicativos e objetivos.
-- Evite commits genéricos como "ajustes" ou "update".
+### 2️⃣ Configurar o projeto
 
-Use um padrão descritivo, como:
+Crie o arquivo `application.properties`:
+
+```yaml
+spring.application.name=ChurnInsight
+spring.datasource.url=URL_DO_BANCO
+spring.datasource.username=USER_DO_BANCO
+spring.datasource.password=SENHA_DO_BANCO
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.hibernate.ddl-auto=validate
+spring.flyway.enabled=true
+spring.jackson.mapper.accept-case-insensitive-enums=true
+management.endpoints.web.exposure.include=health,info
+management.endpoint.health.show-details=when_authorized
 
 ```
-feat: implementa criação de endpoint 
-fix: corrige validação de service (nome do service)
-refactor: melhora lógica do serviço de autenticação
-docs: adiciona documentação da API
-test: adiciona testes para o repositório de (nome do repositório)
+
+### 3️⃣ Execute o modelo de ML
+
+Para entender melhor como fazer isso, consulte a [documentação do modelo](https://github.com/isaacmnss/churnInsight-model)
+
+### 4️⃣ Executar a aplicação
+
+```bash
+./mvnw spring-boot:run
 ```
-### Recomendações
 
-- Escreva no imperativo → "adiciona", "corrige", "remove"
-- Commits pequenos e frequentes são bem-vindos
+A API ficará disponível em:
 
----
+```
+http://localhost:8080
+```
 
-## 🔀 Pull Requests
+### 5️⃣ Utilize Postman / UI para fazer as requisições 
 
-### Regras gerais:
+Caso deseje utilizar o projeto com uma interface intuitiva, recomendamos consultar a 
+[documentação do frontend](https://github.com/isaacmnss/churnInsight-frontend)
 
-1. **Nunca faça push para main.**
+Mas você também pode utilizar o Postman nos seguintes endpoints
 
-2. Toda feature deve gerar um PR da sua branch feature/* → develop.
+```http
+POST /v1/prediction
+GET  /v1/stats
+GET  /actuator/health
+```
 
-3. O PR deve ter:
+## ❤️ Agradecimentos
 
-    - título descritivo
+Projeto desenvolvido no contexto de um **Hackathon** promovido por Alura e Oracle durante o bootcamp Oracle Next Education
 
-    - descrição do que foi feito
+Agradecimentos especiais ao restante dos membros da equipe:
 
-## ✔️ Fluxo de Trabalho (Resumo)
+### Data Scientists
 
-1. Criar branch a partir de develop
+- Pedro Camargo
 
-2. Desenvolver → commits claros
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/pedrocamargo1/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/Pdrnho)
 
-3. Abrir Pull Request para develop
+- Suellen Costa
 
-4. Revisão + ajustes (se necessário)
 
-5. Merge para develop
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/suellensilva86)
 
-6. Periodicamente, develop é integrado à main via PR
+- Antonio Sergio
 
-Se tiver dúvidas sobre o fluxo de trabalho ou sobre padrões de código, fale com o time antes de abrir PR.
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/asccjr/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/ASCCJR)
+
+### Devs Backend
+
+- Paulo Cruz
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/paulo-cruz-dev/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/PauloBrazilian)
+
+- Isaaac Meneses
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/isaac-meneses/)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white)](https://github.com/isaacmnss)
