@@ -44,7 +44,7 @@ A API é responsável por:
 * **Lombok**
 * **MapStruct**
 * **Swagger / OpenAPI**
-* **JUnit / Mockito** (testes)
+* **Docker Compose**
 
 ---
 
@@ -146,58 +146,23 @@ O modelo de ML consumido pela API foi treinado utilizando o dataset público:
 
 ## 🚀 Como Executar Localmente
 
-### 1️⃣ Clonar o repositório
+Graças a conteinerização do projeto, o processo de execução é extremamente simplificado
+
+> A única ferramenta necessária localmente é o Docker Desktop
+
+### 1️⃣ Clonar os repositórios
 
 ```bash
+git clone https://github.com/isaacmnss/churnInsight-frontend.git
 git clone https://github.com/isaacmnss/churnInsight.git
-cd churnInsight
+git clone https://github.com/isaacmnss/churnInsight-model.git
 ```
 
-### 2️⃣ Configurar o projeto
-
-Crie o arquivo `application.properties`:
-
-```yaml
-spring.application.name=ChurnInsight
-spring.datasource.url=URL_DO_BANCO
-spring.datasource.username=USER_DO_BANCO
-spring.datasource.password=SENHA_DO_BANCO
-spring.datasource.driver-class-name=org.postgresql.Driver
-spring.jpa.hibernate.ddl-auto=validate
-spring.flyway.enabled=true
-spring.jackson.mapper.accept-case-insensitive-enums=true
-management.endpoints.web.exposure.include=health,info
-management.endpoint.health.show-details=when_authorized
-
-```
-
-### 3️⃣ Execute o modelo de ML
-
-Para entender melhor como fazer isso, consulte a [documentação do modelo](https://github.com/isaacmnss/churnInsight-model)
-
-### 4️⃣ Executar a aplicação
+### 2️⃣ Subir o container Docker
 
 ```bash
-./mvnw spring-boot:run
-```
-
-A API ficará disponível em:
-
-```
-http://localhost:8080
-```
-
-### 5️⃣ Utilize Postman / UI para fazer as requisições 
-
-Caso deseje utilizar o projeto com uma interface intuitiva, recomendamos consultar a 
-[documentação do frontend](https://github.com/isaacmnss/churnInsight-frontend)
-
-Mas você também pode utilizar o Postman nos seguintes endpoints
-
-```http
-POST /v1/prediction
-GET  /v1/stats
-GET  /actuator/health
+cd churninsight
+docker compose up --build
 ```
 
 ---
