@@ -165,7 +165,7 @@ cd churninsight
 docker compose up --build
 ```
 
-> é importante também configurar o arquivo .env do repositório do frontend com a variável VITE_URL_BASE_API=http://localhost:8080 ou o projeto não irá rodar
+> é importante também configurar o arquivo .env do repositório do frontend com a variável VITE_URL_BASE_API=http://localhost:8080/v1 ou o projeto não irá funcionar
 
 ---
 
