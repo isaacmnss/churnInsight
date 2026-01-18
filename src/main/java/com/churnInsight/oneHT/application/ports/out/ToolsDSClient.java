@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.FeignClientProperties;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "ms-tools-ds", url = "http://model:8000", configuration = FeignClientProperties.FeignClientConfiguration.class)
+@FeignClient(name = "ms-tools-ds", url = "https://churninsight-model-production.up.railway.app/", configuration = FeignClientProperties.FeignClientConfiguration.class)
 public interface ToolsDSClient {
 
     @PostMapping(value = "/predict", produces = "application/json")
